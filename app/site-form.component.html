@@ -1,0 +1,59 @@
+<div class="container">
+    <div [hidden]="submitted"><!--把元素的属性hidden设置为组件中属性submitted的值-->
+        <h1>网站表单</h1>
+
+        <!--每一个 input 元素都有一个 name 属性， Angular 的表单模块需要使用它为表单注册控制器-->
+        <!-- 我们定义了一个模板引用变量 #siteForm ，并且把它初始化为 "ngForm" 。
+    这个 siteForm 变量现在引用的是 NgForm 指令，它代表的是表单的整体。 -->
+        <form action="" *ngIf="active" (ngSubmit)="onSubmit()" #siteForm="ngForm">
+            {{diagnostic}}
+            <div class="form-group">
+                <label for="name">网站名</label>
+                <input type="text" class="form-control" id="name" name="name"
+                       [(ngModel)]="model.name" #name="ngModel" required/>
+
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    网站名是必须的
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="alexa">alexa排名</label>
+                <input type="text" class="form-control" name="alexa" id="alexa"
+                       [(ngModel)]="model.alexa"/>
+            </div>
+
+            <div class="form-group">
+                <label for="url">网站URL</label>
+                <select class="form-control" name="url" id="url"
+                        [(ngModel)]="model.url" required>
+                    <!-- ngFor指令支持一个可选的index索引，在迭代过程中会从0增长到数组中的长度。
+                    可以通过模板输入变量来捕获这个index，并应用在模板中-->
+                    <option value="" *ngFor="let urlText of urls;let i=index" [value]="urlText">{{i+1}}---{{urlText}}</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-default" (click)="newSite()">添加网站</button>
+
+            <button type="submit" class="btn btn-default">提交</button>
+        </form>
+    </div>
+
+    <div [hidden]="!submitted">
+        <h2>你提交的信息如下：</h2>
+        <div class="row">
+            <div class="col-md-3">网站名</div>
+            <div class="col-md-9 pull-left">{{model.name}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">网站alexa排名</div>
+            <div class="col-md-9 pull-left">{{model.alexa}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">网站URL</div>
+            <div class="col-md-9 pull-left">{{model.url}}</div>
+        </div>
+        <br/>
+        <button class="btn btn-default" (click)="submitted=false">编辑</button>
+    </div>
+</div>

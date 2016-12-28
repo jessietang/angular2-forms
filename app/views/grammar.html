@@ -1,0 +1,112 @@
+<p class="list">1.插值表达式</p>
+<div>
+    {{title}}
+    <img src="{{imgUrl}}" alt="" style="height:50px;"/>
+</div>
+
+
+<p class="list">2.模板表达式</p>
+<div>the sum of 1 + 1 is {{1 + 1}}</div>
+
+
+<p class="list">3.属性绑定---模板的属性绑定可以把视图元素的属性设置为模板表达式。
+    最常用的属性绑定是把元素的属性设置为组件中属性的值。 </p>
+
+<li>下面这个例子中， image 元素的 src属性会被绑定到组件的 imageUrl 属性上:</li>
+<img [src]="imgUrl" alt=""/>
+
+<li>当组件为 isUnchanged( 未改变 ) 时禁用一个按钮:</li>
+<button [disabled]="isUnchanged" class="btn btn-default">按钮是禁用的</button>
+
+<li>设置指令的属性：(怎么用？？？？)</li>
+<div [ngClass]="classes">[ngClass]绑定到classes属性1</div>
+<div [ngClass]="'myClass'">[ngClass]绑定到classes属性2</div>
+
+<li>设置一个自定义组件的属性（这是父子组件间通讯的重要途径）</li>
+
+
+<p class="list">4.HTML 属性(Attribute)、 class 和 style 绑定</p>
+<li>属性(Attribute)、绑定---当元素没有属性可绑的时候，使用HTML标签属性(Attribute)绑定</li>
+<div>考虑 ARIA, SVG 和 table 中的 colspan/rowspan 等属性(Attribute) 。它们是纯粹的属性 。
+    它们没有对应的属性可供绑定。如：不能绑定到'colspan'，因为它不是已知的原生属性。
+正确的做法：中括号中的部分不是一个元素的属性名，而是由一个attr.的前缀和HTML标签属性的名称组成，
+    然后通过一个能求值为字符串的表达式来设置HTML标签属性的值</div>
+<table border=1>
+    <tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
+    <tr><td>Five</td><td>Six</td></tr>
+</table>
+
+<li>css类绑定---借助 CSS 类绑定 ，我们可以从元素的 class 属性上添加和移除 CSS 类名</li>
+<div class="bad curly special">标准HTML样式类设置 bad curly special</div>
+<!--<div class="bad curly special" [class]="bad curly">通过绑定重设或覆盖样式类 bad curly</div>
+<div [class.special]="isSpecial"> 这个样式比较特殊</div>-->
+
+
+<li>style样式绑定---通过样式绑定，可以设置内联样式。样式绑定语法上类似于属性绑定，
+    但中括号里面的部分不是一个元素的属性名，样式绑定包括一个style.，紧跟着css样式的属性名，
+    例如：[style.style-property].样式属性可以是中线命名法（font-size），
+    也可以是驼峰是命名法（fontSize）</li>
+<button [style.color]="isRed ? 'red' : 'black'">red button</button>
+<button [style.background-color]="canSave ? 'green': 'red'">save</button>
+<div>带有单位的样式绑定 :</div>
+<button [style.font-size.em]="isBig ? 3 : 1">big button</button>
+<button [style.font-size.%]="!isBig ? 150 : 50">small button</button>
+
+
+<p class="list">5.事件绑定---事件绑定的语法是由等号左侧小括号内的 目标事件 和右侧引号中的 模板声明 组成</p>
+<button (click)="onSave()">save it</button>
+
+
+<p class="list">6.使用 NgModel 进行双向数据绑定---[]实现了数据流从组件到模板，
+    ()实现了数据流从模板到组件，两者一结合[()]就实现了双向绑定</p>
+<input type="text" [(ngModel)]="currentUser.firstName"/>
+{{currentUser.firstName}}
+
+
+<p class="list">7.内置指令---Angular 的内置指令有 NgClass、NgStyle、NgIf、NgFor、NgSwitch等</p>
+<li>ngClass</li>
+<div [ngClass]="isBig ? 'x-large' : 'smaller'" >
+    这个div是大号的。
+</div>
+<li>ngStyle</li>
+<div [ngStyle]="setStyles()">
+    这个div的样式是italic, bold weight, 和extra large (24px)。
+</div>
+<li>ngIf</li>
+<div *ngIf="currentUser">Hello, {{currentUser.firstName}}</div>
+<div *ngIf="isActive">我不在dom中</div>
+<li>ngSwitch</li>
+<span [ngSwitch]="userName">
+    <span *ngSwitchCase="'张三'">张三</span>
+    <span *ngSwitchCase="'李四'">李四</span>
+    <span *ngSwitchCase="'王五'">王五</span>
+    <span *ngSwitchCase="'赵六'">赵六</span>
+    <span *ngSwitchDefault>龙六</span>
+</span>
+<li>ngFor</li>
+<div *ngFor="let user of users;let i=index">
+    序号：{{i+1}}---name: {{user.userName}}; age: {{user.age}}
+</div>
+<select class="form-control" name="url" id="url" required>
+    <!-- ngFor指令支持一个可选的index索引，在迭代过程中会从0增长到数组中的长度。
+    可以通过模板输入变量来捕获这个index，并应用在模板中-->
+    <option *ngFor="let user of users;let i=index" [value]="user.age">
+        {{i+1}}---{{user.age}}
+    </option>
+</select>
+
+
+<p class="list">8.模板引用变量</p>
+<li>phone 引用了 input 元素，并将 `value` 传递给事件句柄</li>
+<input type="text" #phone placeholder="phone number"/>
+<button (click)="callPhone(phone.value)">Call</button>
+
+<li>fax 引用了 input 元素，并将  `value` 传递给事件句柄 </li>
+<input type="text" ref-fax placeholder="fax number"/>
+<button (click)="callFax(fax.value)">Fax</button>
+
+
+
+
+
+

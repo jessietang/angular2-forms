@@ -5,9 +5,10 @@ import {Component} from '@angular/core';
 import {Site} from './site';
 
 @Component({
-    moduleId: module.id,
+    moduleId: module.id,/*作用：moduleId：module.id 固定写法，为了templateUrl 能用相对地址，
+    不然引用site-form.component.html就需要从app文件夹开始*/
     selector: 'site-form',
-    templateUrl: 'site-form.component.html'
+    templateUrl: 'views/site-form.component.html'
 })
 
 export class SiteFormComponent{

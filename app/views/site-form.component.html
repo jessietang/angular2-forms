@@ -29,7 +29,7 @@
                         [(ngModel)]="model.url" required>
                     <!-- ngFor指令支持一个可选的index索引，在迭代过程中会从0增长到数组中的长度。
                     可以通过模板输入变量来捕获这个index，并应用在模板中-->
-                    <option value="" *ngFor="let urlText of urls;let i=index" [value]="urlText">{{i+1}}---{{urlText}}</option>
+                    <option *ngFor="let urlText of urls;let i=index" [value]="urlText">{{i+1}}---{{urlText}}</option>
                 </select>
             </div>
 

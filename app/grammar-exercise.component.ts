@@ -8,6 +8,7 @@ import {Component} from '@angular/core';
     templateUrl: 'app/views/grammar.html'
 })
 export class GrammarExercise{
+
     title = 'picture title';
     imgUrl = 'app/images/c1.png';
 
@@ -19,7 +20,8 @@ export class GrammarExercise{
     canSave = true;
     isBig = true;
     currentUser = {
-        firstName: "jessie"
+        firstName: "jessie",
+        age: 23
     };
 
     userName = '张三';
@@ -51,9 +53,22 @@ export class GrammarExercise{
 
     callPhone(phoneNum){
         alert(phoneNum);
+
     }
 
     callFax(faxNum){
         alert(faxNum);
+    }
+
+    btnName = "haha";
+    onClick();
+
+    constructor(){
+        this.title="test";
+
+        this.onClick = function(){
+            this.btnName = "yes yes yes";
+            alert('you clicked me!!!');
+        }
     }
 }

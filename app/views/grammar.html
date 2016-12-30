@@ -4,6 +4,18 @@
     <img src="{{imgUrl}}" alt="" style="height:50px;"/>
 </div>
 
+<li>需要注意的是，属性的值总是被当做调用者模型中的表达式进行绑定，当表达式变化时，
+    被 调用的组件自动得到更新。如果希望将属性绑定到一个常量字符串，别忘了给字符串加引号，
+    或者， 去掉中括号</li>
+<!--<h1 [text-content]="Hello,Angular2"></h1> 这种写法是错误的-->
+
+<h1 text-content="Hello,Angular2"></h1>
+
+<!--<h1 [text-content]="'Hello,Angular2'"></h1>
+报错：Can't bind to 'text-content' since it isn't a known property of 'h1'-->
+
+<h1 [title]="'Hello,Angular2'"></h1>
+
 
 <p class="list">2.模板表达式</p>
 <div>the sum of 1 + 1 is {{1 + 1}}</div>
@@ -55,6 +67,7 @@
 
 <p class="list">5.事件绑定---事件绑定的语法是由等号左侧小括号内的 目标事件 和右侧引号中的 模板声明 组成</p>
 <button (click)="onSave()">save it</button>
+<button (click)="onClick()">click me {{btnName}}</button>
 
 
 <p class="list">6.使用 NgModel 进行双向数据绑定---[]实现了数据流从组件到模板，
@@ -75,6 +88,10 @@
 <li>ngIf</li>
 <div *ngIf="currentUser">Hello, {{currentUser.firstName}}</div>
 <div *ngIf="isActive">我不在dom中</div>
+<div *ngIf="currentUser.lastName">我不在dom中</div>
+<div *ngIf="false">我不在dom中</div>
+<div *ngIf="null">我不在dom中</div>
+<div *ngIf="true">我在dom中</div>
 <li>ngSwitch</li>
 <span [ngSwitch]="userName">
     <span *ngSwitchCase="'张三'">张三</span>
@@ -96,10 +113,11 @@
 </select>
 
 
-<p class="list">8.模板引用变量</p>
+<p class="list">8.模板引用变量---如何做到，点击Call的时候，把call btn变成背景黑色，字体白色？？？</p>
 <li>phone 引用了 input 元素，并将 `value` 传递给事件句柄</li>
-<input type="text" #phone placeholder="phone number"/>
+<input type="text" #phone (keyup.enter)="phoneValue=phone.value" placeholder="phone number"/>
 <button (click)="callPhone(phone.value)">Call</button>
+<div>{{phoneValue}}</div>
 
 <li>fax 引用了 input 元素，并将  `value` 传递给事件句柄 </li>
 <input type="text" ref-fax placeholder="fax number"/>

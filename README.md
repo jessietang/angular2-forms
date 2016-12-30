@@ -1,4 +1,4 @@
 # angular2-forms
 it is a project about angularjs2 forms
-AngularJS2表单
-AngularJS2模板语法
+AngularJS2琛ㄥ崟
+AngularJS2妯℃澘璇硶
